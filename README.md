@@ -1,6 +1,6 @@
 # Koro WordPress Suite
 
-Modular WordPress showcase demonstrating a custom booking platform with encrypted payment credentials, role-based editorial workflows, and a dedicated admin dashboard.
+WordPress booking site: custom theme, cart/checkout, encrypted payment settings in the database, roles, admin dashboard.
 
 ## Stack
 
@@ -84,31 +84,13 @@ Cart and Checkout pages are created automatically when Koro Booking is activated
 3. Activate theme and plugins as above
 4. Ensure `wp-config.php` has unique authentication salts (required for payment encryption)
 
-## Deployment
+## Branches
 
-See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for production deployment, security checklist, and troubleshooting.
-
-## Git Workflow
-
-| Branch | Purpose |
-|--------|---------|
-| `main` | Stable releases |
-| `dev` | Integration branch |
-| `feature/*` | Feature work (e.g. `feature/ui-polish`) |
-
-Use [Conventional Commits](https://www.conventionalcommits.org/): `feat(booking): add date validation`.
-
-## Architecture
-
-See [docs/architecture.md](docs/architecture.md) for module boundaries, data flow, and security notes.
-
-## Demo Data
-
-After setup, add 2–3 sample services with prices. Sandbox mode completes payments without charging real cards.
+`main`, `dev`, `feature/*`
 
 ## Live demo
 
-**URL:** _Pending deployment_ — [GitHub](https://github.com/koro-manoj/koro-wp-suite)
+Pending deployment.
 
 ## License
 
