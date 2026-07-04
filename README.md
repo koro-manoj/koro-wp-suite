@@ -75,6 +75,10 @@ See [docs/architecture.md](docs/architecture.md) for module boundaries, data flo
 
 After setup, add 2–3 sample services with prices. Sandbox mode completes payments without charging real cards.
 
+## Live demo
+
+**URL:** _Pending deployment_ — [GitHub](https://github.com/koro-manoj/koro-wp-suite)
+
 ## License
 
 GPL-2.0-or-later (WordPress ecosystem standard).
