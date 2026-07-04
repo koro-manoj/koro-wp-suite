@@ -25,6 +25,7 @@ final class Koro_Roles_Registry {
 		return array(
 			'read'                   => true,
 			'upload_files'           => true,
+			'manage_koro_dashboard'  => true,
 			'edit_koro_services'     => true,
 			'edit_koro_service'      => true,
 			'edit_published_koro_services' => true,

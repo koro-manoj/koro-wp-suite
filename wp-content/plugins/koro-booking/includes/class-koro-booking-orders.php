@@ -77,6 +77,27 @@ final class Koro_Booking_Orders {
 		update_post_meta( $order_id, '_koro_transaction_id', sanitize_text_field( $transaction_id ) );
 	}
 
+	public static function send_confirmation_email( int $order_id ): void {
+		$email = get_post_meta( $order_id, '_koro_customer_email', true );
+		$name  = get_post_meta( $order_id, '_koro_customer_name', true );
+		$date  = get_post_meta( $order_id, '_koro_booking_date', true );
+		$total = (float) get_post_meta( $order_id, '_koro_subtotal', true );
+
+		if ( ! is_email( $email ) ) {
+			return;
+		}
+
+		$subject = __( 'Your booking is confirmed', 'koro-booking' );
+		$body    = sprintf(
+			__( "Hi %1\$s,\n\nYour booking for %2\$s is confirmed.\nTotal: $%3\$s\n\nThank you for choosing us.", 'koro-booking' ),
+			sanitize_text_field( (string) $name ),
+			sanitize_text_field( (string) $date ),
+			number_format( $total, 2 )
+		);
+
+		wp_mail( $email, $subject, $body );
+	}
+
 	/**
 	 * Count orders by status meta.
 	 */

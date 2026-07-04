@@ -191,6 +191,43 @@ final class Koro_Payments_Plugin {
 				'permission_callback' => '__return_true',
 			)
 		);
+
+		register_rest_route(
+			'koro/v1',
+			'/payments/webhook',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'handle_webhook' ),
+				'permission_callback' => '__return_true',
+			)
+		);
+	}
+
+	/**
+	 * Verify and log incoming payment webhooks.
+	 *
+	 * @param WP_REST_Request $request Incoming request.
+	 */
+	public function handle_webhook( WP_REST_Request $request ): WP_REST_Response {
+		$payload   = $request->get_body();
+		$signature = $request->get_header( 'x-koro-signature' );
+		$settings  = Koro_Payments_Settings::get();
+
+		if ( ! empty( $settings['webhook_secret'] ) && is_string( $signature ) ) {
+			$expected = hash_hmac( 'sha256', $payload, (string) $settings['webhook_secret'] );
+			if ( ! hash_equals( $expected, $signature ) ) {
+				return new WP_REST_Response( array( 'error' => 'invalid signature' ), 401 );
+			}
+		}
+
+		$data = json_decode( $payload, true );
+		if ( ! is_array( $data ) ) {
+			return new WP_REST_Response( array( 'error' => 'invalid json' ), 400 );
+		}
+
+		do_action( 'koro_payments_webhook_received', $data );
+
+		return new WP_REST_Response( array( 'status' => 'accepted' ), 202 );
 	}
 }
 

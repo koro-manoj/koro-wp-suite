@@ -55,6 +55,13 @@ final class Koro_Booking_Checkout {
 			);
 		}
 
+		if ( '' === $date || ! self::is_valid_booking_date( $date ) ) {
+			return array(
+				'success' => false,
+				'message' => __( 'Please choose a valid booking date (today or later).', 'koro-booking' ),
+			);
+		}
+
 		$subtotal = Koro_Booking_Cart::subtotal();
 
 		$order_id = Koro_Booking_Orders::create(
@@ -104,6 +111,8 @@ final class Koro_Booking_Checkout {
 			(string) ( $payment['transaction_id'] ?? '' )
 		);
 
+		Koro_Booking_Orders::send_confirmation_email( $order_id );
+
 		Koro_Booking_Cart::clear();
 
 		return array(
@@ -111,5 +120,20 @@ final class Koro_Booking_Checkout {
 			'message'  => __( 'Booking confirmed. Thank you!', 'koro-booking' ),
 			'order_id' => $order_id,
 		);
+	}
+
+	/**
+	 * Validate booking date is today or in the future (Y-m-d).
+	 */
+	private static function is_valid_booking_date( string $date ): bool {
+		$parsed = date_create_from_format( 'Y-m-d', $date );
+
+		if ( false === $parsed ) {
+			return false;
+		}
+
+		$today = new DateTime( 'today', wp_timezone() );
+
+		return $parsed >= $today;
 	}
 }
