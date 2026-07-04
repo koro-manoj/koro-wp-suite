@@ -28,3 +28,6 @@ wp-content/upgrade/
 
 # Docker volumes
 docker/mysql-data/
+
+# Local IDE config (not for public repos)
+.cursor/
