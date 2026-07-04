@@ -1,0 +1,73 @@
+.koro-admin .koro-stats-grid {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 1rem;
+	margin: 1.5rem 0 2rem;
+}
+
+.koro-stat-card {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+	padding: 1rem 1.25rem;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.koro-stat-card__label {
+	display: block;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: #646970;
+	margin-bottom: 0.35rem;
+}
+
+.koro-stat-card__value {
+	font-size: 1.75rem;
+	line-height: 1.2;
+}
+
+.koro-stat-card--ok {
+	border-color: #8ed1b4;
+}
+
+.koro-stat-card--warn {
+	border-color: #f0c674;
+}
+
+.koro-panels {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	gap: 1.5rem;
+}
+
+.koro-panel {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+	padding: 1.25rem;
+}
+
+.koro-panel h2 {
+	margin-top: 0;
+	font-size: 1.1rem;
+}
+
+.koro-quick-links {
+	margin: 0;
+	padding-left: 1.2rem;
+}
+
+.koro-quick-links li + li {
+	margin-top: 0.35rem;
+}
+
+@media (max-width: 1100px) {
+	.koro-admin .koro-stats-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.koro-panels {
+		grid-template-columns: 1fr;
+	}
+}

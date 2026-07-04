@@ -1,0 +1,30 @@
+# WordPress core (installed via Docker or manual download)
+wordpress/
+
+# Environment
+.env
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# Node (if added later)
+node_modules/
+dist/
+
+# Composer vendor in plugins (if used)
+vendor/
+
+# Uploads and cache
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+
+# Docker volumes
+docker/mysql-data/

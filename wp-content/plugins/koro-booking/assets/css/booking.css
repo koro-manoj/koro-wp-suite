@@ -1,0 +1,24 @@
+.koro-checkout__grid {
+	display: grid;
+	grid-template-columns: 1.2fr 0.8fr;
+	gap: 2rem;
+	margin-top: 1.5rem;
+}
+
+.koro-checkout__summary {
+	background: #fff;
+	border: 1px solid #e2ddd4;
+	border-radius: 16px;
+	padding: 1.5rem;
+}
+
+.koro-checkout__summary ul {
+	margin: 0 0 1rem;
+	padding-left: 1.2rem;
+}
+
+@media (max-width: 768px) {
+	.koro-checkout__grid {
+		grid-template-columns: 1fr;
+	}
+}
