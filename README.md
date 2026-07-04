@@ -23,31 +23,57 @@ Modular WordPress showcase demonstrating a custom booking platform with encrypte
 
 ## Quick Start (Docker)
 
+### 1. Clone and configure
+
 ```bash
+git clone https://github.com/koro-manoj/koro-wp-suite.git
+cd koro-wp-suite
 cp .env.example .env
+```
+
+The `.env` file configures database credentials and ports only. Payment API keys are **not** stored here — they are entered via the WordPress admin and encrypted in the database.
+
+### 2. Start the stack
+
+```bash
 docker compose up -d
 ```
 
+Verify the compose file parses correctly:
+
+```bash
+docker compose config
+```
+
+### 3. Install WordPress
+
 Open [http://localhost:8080](http://localhost:8080) and complete the WordPress installer.
 
-### Post-install
+### 4. Activate plugins and theme
 
-1. **Activate plugins** (in order is fine — all are independent):
-   - Koro Roles
-   - Koro Admin
-   - Koro Payments
-   - Koro Booking
+Activate in this order (order is not strict — plugins are independent):
 
-2. **Activate theme**: Koro Base
+1. Koro Roles
+2. Koro Admin
+3. Koro Payments
+4. Koro Booking
 
-3. **Configure payments** (`Koro Suite → Payments`):
-   - Enable payments
-   - Set mode to **Sandbox**
-   - Add test keys (e.g. `pk_test_...` / `sk_test_...`) — stored encrypted in `wp_options`
+Then activate the **Koro Base** theme.
 
-4. **Create services** (`Services → Add Service`) with price and duration
+### 5. Configure payments
 
-5. **Set front page**: Settings → Reading → Static page → assign a page or use default front-page template
+Go to **Koro Suite → Payments**:
+
+- Enable payments
+- Set mode to **Sandbox**
+- Enter test keys (e.g. `pk_test_...` / `sk_test_...`)
+
+Credentials are encrypted with AES-256-GCM and stored in `wp_options` (`koro_payments_settings`).
+
+### 6. Add services and set front page
+
+1. Create services under **Services → Add Service** (set price and duration)
+2. Settings → Reading → Static page, or use the default front-page template
 
 Cart and Checkout pages are created automatically when Koro Booking is activated.
 
@@ -56,6 +82,11 @@ Cart and Checkout pages are created automatically when Koro Booking is activated
 1. Install WordPress 6.7+ with PHP 8.1+ and MySQL 8
 2. Copy `wp-content/themes/koro-base` and all `wp-content/plugins/koro-*` into your WordPress install
 3. Activate theme and plugins as above
+4. Ensure `wp-config.php` has unique authentication salts (required for payment encryption)
+
+## Deployment
+
+See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for production deployment, security checklist, and troubleshooting.
 
 ## Git Workflow
 
@@ -63,7 +94,7 @@ Cart and Checkout pages are created automatically when Koro Booking is activated
 |--------|---------|
 | `main` | Stable releases |
 | `dev` | Integration branch |
-| `feature/*` | Feature work (e.g. `feature/stripe-webhooks`) |
+| `feature/*` | Feature work (e.g. `feature/ui-polish`) |
 
 Use [Conventional Commits](https://www.conventionalcommits.org/): `feat(booking): add date validation`.
 

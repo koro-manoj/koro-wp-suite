@@ -5,16 +5,52 @@
 	margin-top: 1.5rem;
 }
 
-.koro-checkout__summary {
+.koro-checkout__form {
+	flex-direction: column;
+	align-items: stretch;
+	padding: 1.75rem;
 	background: #fff;
-	border: 1px solid #e2ddd4;
+	border: 1px solid #ddd5c8;
 	border-radius: 16px;
-	padding: 1.5rem;
+	box-shadow: 0 2px 12px rgba(28, 40, 51, 0.06);
+}
+
+.koro-checkout__form > div {
+	flex: 1 1 100%;
+}
+
+.koro-checkout__summary {
+	background: #e8f2ed;
+	border: 1px solid #ddd5c8;
+	border-radius: 16px;
+	padding: 1.75rem;
+}
+
+.koro-checkout__summary h2 {
+	margin: 0 0 1rem;
+	font-family: "Cormorant Garamond", Georgia, serif;
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: #1c2833;
 }
 
 .koro-checkout__summary ul {
 	margin: 0 0 1rem;
 	padding-left: 1.2rem;
+	color: #5a6570;
+	line-height: 1.7;
+}
+
+.koro-checkout__summary p {
+	margin: 0;
+	font-size: 1.125rem;
+	color: #1c2833;
+}
+
+.koro-cart h1,
+.koro-checkout h1 {
+	font-family: "Cormorant Garamond", Georgia, serif;
+	font-weight: 600;
 }
 
 @media (max-width: 768px) {
