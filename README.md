@@ -75,7 +75,16 @@ Credentials are encrypted with AES-256-GCM and stored in `wp_options` (`koro_pay
 1. Create services under **Services → Add Service** (set price and duration)
 2. Settings → Reading → Static page, or use the default front-page template
 
-Cart and Checkout pages are created automatically when Koro Booking is activated.
+Cart and Checkout pages are created automatically when Koro Booking is activated. **Four demo services** are seeded on first activation.
+
+## Tests
+
+```bash
+composer install
+vendor/bin/phpunit
+```
+
+Runs AES-256-GCM encrypt/decrypt tests for payment credential storage.
 
 ## Manual Setup (without Docker)
 

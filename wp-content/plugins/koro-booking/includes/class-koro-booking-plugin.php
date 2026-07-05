@@ -47,6 +47,7 @@ final class Koro_Booking_Plugin {
 		flush_rewrite_rules();
 
 		$this->create_pages();
+		$this->seed_demo_services();
 	}
 
 	public function start_session(): void {
@@ -124,5 +125,71 @@ final class Koro_Booking_Plugin {
 				update_option( $page['option'], (int) $page_id );
 			}
 		}
+	}
+
+	/**
+	 * Seed demo services for showcase installs.
+	 */
+	private function seed_demo_services(): void {
+		if ( get_option( 'koro_booking_demo_seeded' ) ) {
+			return;
+		}
+
+		$services = array(
+			array(
+				'title'    => 'Strategy Consultation',
+				'excerpt'  => 'A focused 60-minute session to map goals, constraints, and next steps.',
+				'content'  => 'Work directly with our team to clarify priorities and leave with an actionable plan.',
+				'price'    => 199.00,
+				'duration' => 60,
+			),
+			array(
+				'title'    => 'Design Review',
+				'excerpt'  => 'Expert feedback on UX flows, visual hierarchy, and conversion paths.',
+				'content'  => 'Bring your mockups or live site — we audit structure, accessibility, and polish.',
+				'price'    => 149.00,
+				'duration' => 45,
+			),
+			array(
+				'title'    => 'Technical Audit',
+				'excerpt'  => 'Architecture, performance, and security review for Laravel or WordPress stacks.',
+				'content'  => 'Receive a prioritized report with quick wins and longer-term recommendations.',
+				'price'    => 249.00,
+				'duration' => 90,
+			),
+			array(
+				'title'    => 'Launch Support',
+				'excerpt'  => 'Hands-on help shipping your booking site, store, or client portal.',
+				'content'  => 'Deployment checklist, DNS, SSL, payment sandbox verification, and smoke testing.',
+				'price'    => 179.00,
+				'duration' => 60,
+			),
+		);
+
+		foreach ( $services as $service ) {
+			$existing = get_page_by_title( $service['title'], OBJECT, 'koro_service' );
+			if ( $existing instanceof WP_Post ) {
+				continue;
+			}
+
+			$post_id = wp_insert_post(
+				array(
+					'post_title'   => $service['title'],
+					'post_excerpt' => $service['excerpt'],
+					'post_content' => $service['content'],
+					'post_status'  => 'publish',
+					'post_type'    => 'koro_service',
+				)
+			);
+
+			if ( is_wp_error( $post_id ) || ! $post_id ) {
+				continue;
+			}
+
+			update_post_meta( (int) $post_id, '_koro_price', $service['price'] );
+			update_post_meta( (int) $post_id, '_koro_duration', $service['duration'] );
+		}
+
+		update_option( 'koro_booking_demo_seeded', '1' );
 	}
 }

@@ -1,0 +1,12 @@
+{
+    "name": "koro/wp-suite-tests",
+    "description": "PHPUnit tests for Koro WordPress suite plugins",
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Koro\\WpSuite\\Tests\\": "tests/"
+        }
+    }
+}

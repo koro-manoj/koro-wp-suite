@@ -20,6 +20,7 @@ dist/
 
 # Composer vendor in plugins (if used)
 vendor/
+.phpunit.result.cache
 
 # Uploads and cache
 wp-content/uploads/
